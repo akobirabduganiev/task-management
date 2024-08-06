@@ -16,9 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import tech.nuqta.taskmanagement.enums.Gender;
 import tech.nuqta.taskmanagement.role.Role;
 
-
 import java.security.Principal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
