@@ -1,4 +1,4 @@
-package tech.nuqta.handihub.role;
+package tech.nuqta.taskmanagement.role;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -7,11 +7,12 @@ import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import tech.nuqta.handihub.enums.RoleName;
-import tech.nuqta.handihub.user.entity.User;
+import tech.nuqta.taskmanagement.enums.RoleName;
+import tech.nuqta.taskmanagement.user.entity.User;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
 
 /**
  * The Role class represents a role in the application.

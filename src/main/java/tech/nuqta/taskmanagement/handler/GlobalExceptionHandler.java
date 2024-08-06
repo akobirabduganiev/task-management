@@ -1,7 +1,6 @@
-package tech.nuqta.handihub.handler;
+package tech.nuqta.taskmanagement.handler;
 
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -10,13 +9,13 @@ import org.springframework.security.authentication.LockedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import tech.nuqta.handihub.exception.*;
+import tech.nuqta.taskmanagement.exception.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import static org.springframework.http.HttpStatus.*;
-import static tech.nuqta.handihub.handler.BusinessErrorCodes.*;
+import static tech.nuqta.taskmanagement.handler.BusinessErrorCodes.*;
 
 /**
  * This class provides global exception handling for the REST API.

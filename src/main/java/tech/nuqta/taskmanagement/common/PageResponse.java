@@ -1,4 +1,4 @@
-package tech.nuqta.handihub.common;
+package tech.nuqta.taskmanagement.common;
 
 import lombok.*;
 

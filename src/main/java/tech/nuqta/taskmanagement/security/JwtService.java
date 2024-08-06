@@ -1,4 +1,4 @@
-package tech.nuqta.handihub.security;
+package tech.nuqta.taskmanagement.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

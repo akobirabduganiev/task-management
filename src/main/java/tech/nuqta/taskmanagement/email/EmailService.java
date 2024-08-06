@@ -1,4 +1,4 @@
-package tech.nuqta.handihub.email;
+package tech.nuqta.taskmanagement.email;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -10,7 +10,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
-import tech.nuqta.handihub.enums.EmailTemplateName;
+import tech.nuqta.taskmanagement.enums.EmailTemplateName;
 
 import java.util.HashMap;
 import java.util.Map;

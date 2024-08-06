@@ -1,9 +1,10 @@
-package tech.nuqta.handihub.user.repository;
+package tech.nuqta.taskmanagement.user.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import tech.nuqta.handihub.user.entity.User;
+import tech.nuqta.taskmanagement.user.entity.User;
+
 
 import java.util.Optional;
 

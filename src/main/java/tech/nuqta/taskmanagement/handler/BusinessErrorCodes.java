@@ -1,4 +1,4 @@
-package tech.nuqta.handihub.handler;
+package tech.nuqta.taskmanagement.handler;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

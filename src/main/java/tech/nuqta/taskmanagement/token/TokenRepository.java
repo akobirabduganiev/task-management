@@ -1,4 +1,4 @@
-package tech.nuqta.handihub.token;
+package tech.nuqta.taskmanagement.token;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -1,4 +1,4 @@
-package tech.nuqta.handihub.config;
+package tech.nuqta.taskmanagement.config;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
@@ -11,7 +11,7 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.servers.Server;
 
 /**
- * The OpenApiConfig class specifies the OpenAPI configuration for the HandiHub API.
+ * The OpenApiConfig class specifies the OpenAPI configuration for the Task Management Project API.
  * It includes information such as the API contact details, description, version, licensing, terms of service,
  * servers, and security requirements.
  */
@@ -22,8 +22,8 @@ import io.swagger.v3.oas.annotations.servers.Server;
                         email = "akobir.abduganiev@ya.ru",
                         url = "https://nuqta.tech"
                 ),
-                description = "OpenApi specification for the HandiHub project",
-                title = "HandiHub API",
+                description = "OpenApi specification for the Task Management project",
+                title = "Task Management API",
                 version = "1.0",
                 license = @License(
                         name = "Licence name",

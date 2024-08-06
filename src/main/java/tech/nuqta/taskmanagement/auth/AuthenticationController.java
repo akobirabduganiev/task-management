@@ -1,4 +1,4 @@
-package tech.nuqta.handihub.auth;
+package tech.nuqta.taskmanagement.auth;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.mail.MessagingException;
@@ -7,7 +7,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import tech.nuqta.handihub.common.ResponseMessage;
+import tech.nuqta.taskmanagement.common.ResponseMessage;
 
 /**
  * The AuthenticationController class handles the authentication-related APIs.

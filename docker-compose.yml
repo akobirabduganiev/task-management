@@ -1,0 +1,23 @@
+services:
+  postgres:
+    container_name: postgres-sql-task-management
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      PGDATA: /var/lib/postgresql/data
+      POSTGRES_DB: task-management
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - 5433:5432
+    networks:
+      - spring-demo
+    restart: unless-stopped
+networks:
+  spring-demo:
+    driver: bridge
+
+volumes:
+  postgres:
+    driver: local

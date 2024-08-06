@@ -1,4 +1,4 @@
-package tech.nuqta.handihub.exception;
+package tech.nuqta.taskmanagement.exception;
 
 public class ItemNotFoundException extends RuntimeException {
     public ItemNotFoundException(String message) {

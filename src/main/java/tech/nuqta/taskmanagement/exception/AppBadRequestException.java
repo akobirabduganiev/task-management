@@ -1,4 +1,4 @@
-package tech.nuqta.handihub.exception;
+package tech.nuqta.taskmanagement.exception;
 
 public class AppBadRequestException extends RuntimeException {
     public AppBadRequestException(String message) {

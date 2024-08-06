@@ -12,9 +12,9 @@ spring:
     virtual:
       enabled: true
   application:
-    name: handihub
+    name: task-management
   datasource:
-    url: jdbc:postgresql://localhost:5432/handihub
+    url: jdbc:postgresql://localhost:5433/task-management
     username: postgres
     password: root
     driver-class-name: org.postgresql.Driver
@@ -38,8 +38,5 @@ application:
   mailing:
     frontend:
       activation-url: http://localhost:4200/activate-account
-  file:
-    uploads:
-      photos-output-path: ./uploads
 server:
   port: 8080

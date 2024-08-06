@@ -1,6 +1,6 @@
-package tech.nuqta.handihub.security;
+package tech.nuqta.taskmanagement.security;
 
-import jakarta.validation.constraints.NotNull;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import static org.springframework.security.config.Customizer.withDefaults;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 /**
@@ -65,7 +64,7 @@ public class SecurityConfig {
 
         return new WebMvcConfigurer() {
             @Override
-            public void addCorsMappings(@NotNull CorsRegistry registry) {
+            public void addCorsMappings(@NonNull CorsRegistry registry) {
                 registry
                         .addMapping("/**")
                         .allowedMethods(CorsConfiguration.ALL)

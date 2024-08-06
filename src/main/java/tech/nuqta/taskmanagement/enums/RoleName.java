@@ -1,4 +1,4 @@
-package tech.nuqta.handihub.enums;
+package tech.nuqta.taskmanagement.enums;
 
 public enum RoleName {
     USER,

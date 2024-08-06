@@ -1,4 +1,4 @@
-package tech.nuqta.handihub.enums;
+package tech.nuqta.taskmanagement.enums;
 
 import lombok.Getter;
 

@@ -1,4 +1,4 @@
-package tech.nuqta.handihub.auth;
+package tech.nuqta.taskmanagement.auth;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;

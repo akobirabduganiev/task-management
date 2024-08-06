@@ -1,14 +1,14 @@
-package tech.nuqta.handihub.common;
+package tech.nuqta.taskmanagement.common;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import tech.nuqta.handihub.enums.RoleName;
-import tech.nuqta.handihub.role.Role;
-import tech.nuqta.handihub.role.RoleRepository;
-import tech.nuqta.handihub.user.entity.User;
-import tech.nuqta.handihub.user.repository.UserRepository;
+import tech.nuqta.taskmanagement.enums.RoleName;
+import tech.nuqta.taskmanagement.role.Role;
+import tech.nuqta.taskmanagement.role.RoleRepository;
+import tech.nuqta.taskmanagement.user.entity.User;
+import tech.nuqta.taskmanagement.user.repository.UserRepository;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package tech.nuqta.handihub.config;
+package tech.nuqta.taskmanagement.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

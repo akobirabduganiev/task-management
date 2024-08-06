@@ -1,7 +1,8 @@
-package tech.nuqta.handihub.role;
+package tech.nuqta.taskmanagement.role;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import tech.nuqta.handihub.enums.RoleName;
+import tech.nuqta.taskmanagement.enums.RoleName;
+
 
 import java.util.Optional;
 

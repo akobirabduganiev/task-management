@@ -1,4 +1,4 @@
-package tech.nuqta.handihub.user.service;
+package tech.nuqta.taskmanagement.user.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,19 +11,17 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import tech.nuqta.handihub.common.PageResponse;
-import tech.nuqta.handihub.common.ResponseMessage;
-import tech.nuqta.handihub.enums.RoleName;
-import tech.nuqta.handihub.exception.AppBadRequestException;
-import tech.nuqta.handihub.exception.AppConflictException;
-import tech.nuqta.handihub.exception.OperationNotPermittedException;
-import tech.nuqta.handihub.mapper.UserMapper;
-import tech.nuqta.handihub.role.RoleRepository;
-import tech.nuqta.handihub.user.dto.UserDto;
-import tech.nuqta.handihub.user.dto.request.UserPasswordUpdateRequest;
-import tech.nuqta.handihub.user.dto.request.UserUpdateRequest;
-import tech.nuqta.handihub.user.entity.User;
-import tech.nuqta.handihub.user.repository.UserRepository;
+import tech.nuqta.taskmanagement.common.PageResponse;
+import tech.nuqta.taskmanagement.common.ResponseMessage;
+import tech.nuqta.taskmanagement.enums.RoleName;
+import tech.nuqta.taskmanagement.exception.AppBadRequestException;
+import tech.nuqta.taskmanagement.exception.OperationNotPermittedException;
+import tech.nuqta.taskmanagement.mapper.UserMapper;
+import tech.nuqta.taskmanagement.user.dto.UserDto;
+import tech.nuqta.taskmanagement.user.dto.request.UserPasswordUpdateRequest;
+import tech.nuqta.taskmanagement.user.dto.request.UserUpdateRequest;
+import tech.nuqta.taskmanagement.user.entity.User;
+import tech.nuqta.taskmanagement.user.repository.UserRepository;
 
 import java.util.Optional;
 
@@ -36,19 +34,10 @@ import java.util.Optional;
 @Slf4j
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
 
-    /**
-     * Updates the user information based on the provided user update request.
-     *
-     * @param request         The user update request containing the new user information.
-     * @param connectedUser   The authenticated user who is performing the update.
-     * @return A response message indicating the success of the update.
-     * @throws AppBadRequestException        If the user to update is not found.
-     * @throws OperationNotPermittedException If the connected user is not authorized to update the user.
-     */
+
     @Override
     public ResponseMessage updateUser(UserUpdateRequest request, Authentication connectedUser) {
         var user = ((User) connectedUser.getPrincipal());
@@ -59,7 +48,6 @@ public class UserServiceImpl implements UserService {
         }
         userToUpdate.setFirstname(request.getFirstname());
         userToUpdate.setLastname(request.getLastname());
-        Optional.ofNullable(request.getDateOfBirth()).ifPresent(userToUpdate::setDateOfBirth);
         Optional.ofNullable(request.getGender()).ifPresent(userToUpdate::setGender);
         userRepository.save(userToUpdate);
         log.info("User with id: {} updated", request.getId());
@@ -131,40 +119,6 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    /**
-     * Makes a user a vendor.
-     *
-     * @param id the ID of the user to be made a vendor
-     * @param connectedUser the currently authenticated user
-     * @return the response message indicating the result of the operation
-     * @throws OperationNotPermittedException if the authenticated user is not authorized to make the specified user a vendor
-     * @throws AppBadRequestException if the vendor role is not found
-     * @throws AppConflictException if the specified user is already a vendor
-     */
-    @Override
-    public ResponseMessage makeVendor(Long id, Authentication connectedUser) {
-        var user = ((User) connectedUser.getPrincipal());
-        var currentUser = getById(id);
-        if (!user.getId().equals(currentUser.getId()) &&
-                user.getRoles().stream().noneMatch(role -> role.getName().equals(RoleName.ADMIN))) {
-            throw new OperationNotPermittedException("You are not authorized to make this user a vendor");
-        }
-        currentUser.setVendor(true);
-
-        var vendor = roleRepository.findByName(RoleName.VENDOR).orElseThrow(() -> new AppBadRequestException("Role not found"));
-
-        // Only add the vendor role if the current user doesn't already have it
-        if (currentUser.getRoles().stream().noneMatch(role -> role.getId().equals(vendor.getId()))) { // ensure you compare with the relevant unique identifier
-            currentUser.getRoles().add(vendor);
-            userRepository.save(currentUser);
-            log.info("User with id: {} is now a vendor", id);
-            return new ResponseMessage("User is now a vendor");
-        } else {
-            log.info("User with id: {} is already a vendor", id);
-            throw new AppConflictException("User is already a vendor");
-        }
-
-    }
 
     /**
      * Updates the password of a user.

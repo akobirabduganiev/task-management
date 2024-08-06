@@ -1,4 +1,4 @@
-package tech.nuqta.handihub.exception;
+package tech.nuqta.taskmanagement.exception;
 
 public class OperationNotPermittedException extends RuntimeException {
     public OperationNotPermittedException(String message) {

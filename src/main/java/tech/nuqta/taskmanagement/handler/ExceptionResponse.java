@@ -1,4 +1,4 @@
-package tech.nuqta.handihub.handler;
+package tech.nuqta.taskmanagement.handler;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;

@@ -1,4 +1,4 @@
-package tech.nuqta.handihub.auth;
+package tech.nuqta.taskmanagement.auth;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
