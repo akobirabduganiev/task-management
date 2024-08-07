@@ -135,6 +135,17 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public PageResponse<TaskDto> getTasks(int page, int size) {
-        return null;
+        Pageable pageable = PageRequest.of(page - 1, size, Sort.by("createdAt").descending());
+        var tasks = taskRepository.findByIsDeletedFalse(pageable);
+        log.info("All tasks retrieved with page number: {} and size: {}", page, size);
+        return new PageResponse<>(
+                TaskMapper.toDtoList(tasks.getContent()),
+                tasks.getNumber() + 1,
+                tasks.getSize(),
+                tasks.getTotalElements(),
+                tasks.getTotalPages(),
+                tasks.isFirst(),
+                tasks.isLast()
+        );
     }
 }
