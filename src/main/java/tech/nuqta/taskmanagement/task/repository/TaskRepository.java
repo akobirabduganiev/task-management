@@ -17,4 +17,8 @@ public interface TaskRepository extends JpaRepository<TaskEntity, Long> {
     @Transactional
     @Query("SELECT t FROM TaskEntity t WHERE t.author = :author AND t.isDeleted = false")
     Page<TaskEntity> findByAssigneeAndIsDeletedFalse(User assignee, Pageable pageable);
+
+    @Transactional
+    @Query("SELECT t FROM TaskEntity t WHERE t.author = :author AND t.isDeleted = false")
+    Page<TaskEntity> findByAuthorAndIsDeletedFalse(User author, Pageable pageable);
 }

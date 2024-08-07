@@ -1,5 +1,6 @@
 package tech.nuqta.taskmanagement.task.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -15,7 +16,6 @@ import tech.nuqta.taskmanagement.mapper.TaskMapper;
 import tech.nuqta.taskmanagement.task.dto.TaskDto;
 import tech.nuqta.taskmanagement.task.dto.request.TaskCreateRequest;
 import tech.nuqta.taskmanagement.task.dto.request.TaskUpdateRequest;
-import tech.nuqta.taskmanagement.task.entity.TaskEntity;
 import tech.nuqta.taskmanagement.task.repository.TaskRepository;
 import tech.nuqta.taskmanagement.user.entity.User;
 import tech.nuqta.taskmanagement.user.repository.UserRepository;
@@ -46,6 +46,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    @Transactional
     public ResponseMessage updateTask(TaskUpdateRequest request, Authentication connectedUser) {
         var task = taskRepository.findById(request.getId()).orElseThrow(
                 () -> new ItemNotFoundException("Task not found"));
@@ -86,6 +87,7 @@ public class TaskServiceImpl implements TaskService {
             throw new OperationNotPermittedException("You are not authorized to view this task");
 
         var taskDto = TaskMapper.toDto(task);
+        log.info("Task with id: {} retrieved", task.getId());
         return new ResponseMessage(taskDto,"Task retrieved successfully");
     }
 
@@ -98,7 +100,7 @@ public class TaskServiceImpl implements TaskService {
         if (!user.getId().equals(assigneeId))
             throw new OperationNotPermittedException("You are not authorized to view tasks for another user");
         var tasks = taskRepository.findByAssigneeAndIsDeletedFalse(assignee, pageable);
-
+        log.info("All tasks for assignee with id: {} retrieved", assigneeId);
         return new PageResponse<>(
                 TaskMapper.toDtoList(tasks.getContent()),
                 tasks.getNumber() + 1,
@@ -112,7 +114,23 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public PageResponse<TaskDto> getTasksByAuthor(Long authorId, int page, int size, Authentication connectedUser) {
-        return null;
+        Pageable pageable = PageRequest.of(page - 1, size, Sort.by("createdAt").descending());
+        var user = (User) connectedUser.getPrincipal();
+        var author = userRepository.findById(authorId).orElseThrow(
+                () -> new ItemNotFoundException("Author not found"));
+        if (!user.getId().equals(authorId))
+            throw new OperationNotPermittedException("You are not authorized to view tasks for another user");
+        var tasks = taskRepository.findByAuthorAndIsDeletedFalse(author, pageable);
+        log.info("All tasks for author with id: {} retrieved", authorId);
+        return new PageResponse<>(
+                TaskMapper.toDtoList(tasks.getContent()),
+                tasks.getNumber() + 1,
+                tasks.getSize(),
+                tasks.getTotalElements(),
+                tasks.getTotalPages(),
+                tasks.isFirst(),
+                tasks.isLast()
+        );
     }
 
     @Override
