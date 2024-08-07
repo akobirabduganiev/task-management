@@ -48,7 +48,6 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    @Transactional
     public ResponseMessage updateTask(TaskUpdateRequest request, Authentication connectedUser) {
         var task = taskRepository.findById(request.getId()).orElseThrow(
                 () -> new ItemNotFoundException("Task not found"));

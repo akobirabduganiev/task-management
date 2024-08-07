@@ -1,9 +1,6 @@
-package tech.nuqta.taskmanagement.comment;
+package tech.nuqta.taskmanagement.comment.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import tech.nuqta.taskmanagement.common.BaseEntity;
@@ -15,6 +12,7 @@ import tech.nuqta.taskmanagement.user.entity.User;
 @Entity
 @Table(name = "comments")
 public class CommentEntity extends BaseEntity {
+    @Column(columnDefinition = "TEXT")
     private String content;
 
     @ManyToOne
