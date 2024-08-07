@@ -10,6 +10,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import tech.nuqta.taskmanagement.common.PageResponse;
 import tech.nuqta.taskmanagement.common.ResponseMessage;
+import tech.nuqta.taskmanagement.enums.TaskPriority;
+import tech.nuqta.taskmanagement.enums.TaskStatus;
 import tech.nuqta.taskmanagement.exception.ItemNotFoundException;
 import tech.nuqta.taskmanagement.exception.OperationNotPermittedException;
 import tech.nuqta.taskmanagement.mapper.TaskMapper;
@@ -78,17 +80,46 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public ResponseMessage getTask(Long id, Authentication connectedUser) {
+    public ResponseMessage getTask(Long id) {
         var task = taskRepository.findById(id).orElseThrow(
                 () -> new ItemNotFoundException("Task not found"));
-        var user = (User) connectedUser.getPrincipal();
-
-        if (!user.getId().equals(task.getAuthor().getId()) && !user.getId().equals(task.getAssignee().getId()))
-            throw new OperationNotPermittedException("You are not authorized to view this task");
-
         var taskDto = TaskMapper.toDto(task);
         log.info("Task with id: {} retrieved", task.getId());
-        return new ResponseMessage(taskDto,"Task retrieved successfully");
+        return new ResponseMessage(taskDto, "Task retrieved successfully");
+    }
+
+    @Override
+    public PageResponse<TaskDto> getTasksByPriority(TaskPriority priority, int page, int size, Authentication connectedUser) {
+        Pageable pageable = PageRequest.of(page - 1, size, Sort.by("createdAt").descending());
+        var user = (User) connectedUser.getPrincipal();
+        var tasks = taskRepository.findByPriorityAndIsDeletedFalse(priority, pageable);
+        log.info("All tasks for priority: {} retrieved", priority);
+        return new PageResponse<>(
+                TaskMapper.toDtoList(tasks.getContent()),
+                tasks.getNumber() + 1,
+                tasks.getSize(),
+                tasks.getTotalElements(),
+                tasks.getTotalPages(),
+                tasks.isFirst(),
+                tasks.isLast()
+        );
+    }
+
+    @Override
+    public PageResponse<TaskDto> getTasksByStatus(TaskStatus status, int page, int size, Authentication connectedUser) {
+        Pageable pageable = PageRequest.of(page - 1, size, Sort.by("createdAt").descending());
+        var user = (User) connectedUser.getPrincipal();
+        var tasks = taskRepository.findByStatusAndIsDeletedFalse(status, pageable);
+        log.info("All tasks for status: {} retrieved", status);
+        return new PageResponse<>(
+                TaskMapper.toDtoList(tasks.getContent()),
+                tasks.getNumber() + 1,
+                tasks.getSize(),
+                tasks.getTotalElements(),
+                tasks.getTotalPages(),
+                tasks.isFirst(),
+                tasks.isLast()
+        );
     }
 
     @Override

@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import tech.nuqta.taskmanagement.enums.TaskPriority;
+import tech.nuqta.taskmanagement.enums.TaskStatus;
 import tech.nuqta.taskmanagement.task.entity.TaskEntity;
 import tech.nuqta.taskmanagement.user.entity.User;
 
@@ -25,4 +27,12 @@ public interface TaskRepository extends JpaRepository<TaskEntity, Long> {
     @Transactional
     @Query("SELECT t FROM TaskEntity t WHERE t.isDeleted = false")
     Page<TaskEntity> findByIsDeletedFalse(Pageable pageable);
+
+    @Transactional
+    @Query("SELECT t FROM TaskEntity t WHERE t.priority = :priority AND t.isDeleted = false")
+    Page<TaskEntity> findByPriorityAndIsDeletedFalse(TaskPriority priority, Pageable pageable);
+
+    @Transactional
+    @Query("SELECT t FROM TaskEntity t WHERE t.status = :status AND t.isDeleted = false")
+    Page<TaskEntity> findByStatusAndIsDeletedFalse(TaskStatus status, Pageable pageable);
 }
