@@ -50,19 +50,12 @@ public class SetupDataLoader implements CommandLineRunner {
             var admin = new Role();
             admin.setName(RoleName.ADMIN);
             roleRepository.save(admin);
-
-            var vendor = new Role();
-            vendor.setName(RoleName.VENDOR);
-            roleRepository.save(vendor);
         }
         if (userRepository.count() == 0) {
             var userRole = roleRepository.findByName(RoleName.USER)
                     .orElseThrow(() -> new IllegalStateException("ROLE USER was not initiated"));
             var adminRole = roleRepository.findByName(RoleName.ADMIN).orElseThrow(
                     () -> new IllegalStateException("ROLE ADMIN was not initiated"));
-            var vendorRole = roleRepository.findByName(RoleName.VENDOR).orElseThrow(
-                    () -> new IllegalStateException("ROLE VENDOR was not initiated"));
-
             var admin = new User();
             admin.setFirstname("Adminjon");
             admin.setLastname("Adminbekov");
@@ -77,7 +70,6 @@ public class SetupDataLoader implements CommandLineRunner {
             user.setFirstname("Userbek");
             user.setLastname("Userjonov");
             user.setEmail("user@handihub.uz");
-            user.setRoles(List.of(userRole, vendorRole));
             user.setEnabled(true);
             user.setAccountLocked(false);
             user.setPassword(passwordEncoder.encode("user"));
