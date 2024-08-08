@@ -11,9 +11,7 @@ import tech.nuqta.taskmanagement.task.entity.TaskEntity;
 import java.util.Optional;
 
 public interface CommentRepository extends JpaRepository<CommentEntity, Long> {
-    @Transactional
-    @Query("SELECT c FROM CommentEntity c WHERE c.task.id = :taskId AND c.isDeleted = false")
-    Optional<CommentEntity> findByTaskId(Long taskId);
+
 
     @Override
     @Transactional
