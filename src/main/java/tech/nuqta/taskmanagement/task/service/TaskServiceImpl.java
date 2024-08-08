@@ -39,6 +39,8 @@ public class TaskServiceImpl implements TaskService {
 
         if (!user.getId().equals(request.getAuthorId()))
             throw new OperationNotPermittedException("You are not authorized to create a task for another user");
+        if (request.getAssigneeId().equals(request.getAuthorId()))
+            throw new OperationNotPermittedException("Assignee and author cannot be the same");
 
         var task = TaskMapper.toEntity(request, assignee, author);
 

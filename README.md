@@ -3,13 +3,20 @@
 ## Запуск проекта
 
 ### Требования
+- Java 21
 - Docker
 - Docker Compose
 
 ### Шаги
-1. Склонируйте репозиторий
-2. Запустите команду `docker-compose up`
-3. API будет доступно по адресу `http://localhost:8080`
+1. С клонируйте репозиторий
+2. Запустите команду:
+    ```shell
+    docker-compose up -d
+    ```
+3. Сборка и запуск приложения с использованием Gradle:
+    - Сборка: `./gradlew build`
+    - Запуск: `./gradlew bootRun`
+4. API будет доступно по адресу `http://localhost:8080`
 
 ## Документация API
-Документация доступна по адресу `http://localhost:8080/swagger-ui.html`
+Документация доступна по адресу `http://localhost:8080/swagger-ui/index.html#/`

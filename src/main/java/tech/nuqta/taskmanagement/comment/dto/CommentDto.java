@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
  */
 public record CommentDto(
         Long id,
-        Boolean isDeleted,
         LocalDateTime createdAt,
         LocalDateTime updatedAt,
         Long createdBy,

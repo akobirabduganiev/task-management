@@ -9,7 +9,6 @@ public class CommentMapper {
     public static CommentDto toDto(CommentEntity entity) {
         return new CommentDto(
                 entity.getId(),
-                entity.getIsDeleted(),
                 entity.getCreatedAt(),
                 entity.getUpdatedAt(),
                 entity.getCreatedBy(),
