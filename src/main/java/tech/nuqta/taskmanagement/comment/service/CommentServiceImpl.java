@@ -129,9 +129,6 @@ public class CommentServiceImpl implements CommentService {
      * @param commentId the ID of the comment to retrieve
      * @return a ResponseMessage object containing the retrieved comment and a success message
      * @throws ItemNotFoundException if the comment with the provided ID does not exist
-     *
-     * @see CommentRepository#findById(Long)
-     * @see CommentMapper#toDto(Comment)
      * @see ResponseMessage
      * @see ItemNotFoundException
      */
