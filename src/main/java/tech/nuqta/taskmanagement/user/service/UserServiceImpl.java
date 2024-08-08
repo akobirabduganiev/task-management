@@ -2,6 +2,8 @@ package tech.nuqta.taskmanagement.user.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -39,6 +41,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
+    @CacheEvict(value = "users", allEntries = true)
     public ResponseMessage updateUser(UserUpdateRequest request, Authentication connectedUser) {
         var user = ((User) connectedUser.getPrincipal());
         var userToUpdate = userRepository.findById(request.getId()).orElseThrow(() -> new AppBadRequestException("User not found"));
@@ -63,6 +66,7 @@ public class UserServiceImpl implements UserService {
      * @throws OperationNotPermittedException if the connected user is not authorized to delete the user
      */
     @Override
+    @CacheEvict(value = "users", allEntries = true)
     public ResponseMessage deleteUser(Long id, Authentication connectedUser) {
         var user = ((User) connectedUser.getPrincipal());
         var foundUser = getById(id);
@@ -86,6 +90,7 @@ public class UserServiceImpl implements UserService {
      * @throws OperationNotPermittedException  If the authenticated user is not authorized to retrieve the user.
      */
     @Override
+    @Cacheable("users")
     public ResponseMessage getUser(Long id, Authentication connectedUser) {
         var user = ((User) connectedUser.getPrincipal());
         var retrievedUser = getById(id);
@@ -104,6 +109,7 @@ public class UserServiceImpl implements UserService {
      * @return A PageResponse containing the list of UserDto objects, as well as pagination information.
      */
     @Override
+    @Cacheable("users")
     public PageResponse<UserDto> getUsers(int page, int size) {
         Pageable pageable = PageRequest.of(page - 1, size, Sort.by("createdAt").descending());
         Page<User> users = userRepository.findAll(pageable);
@@ -130,6 +136,7 @@ public class UserServiceImpl implements UserService {
      * @throws OperationNotPermittedException  if the authenticated user is not authorized to update the password
      */
     @Override
+    @CacheEvict(value = "users", allEntries = true)
     public ResponseMessage updatePassword(UserPasswordUpdateRequest request, Authentication connectedUser) {
         var user = ((User) connectedUser.getPrincipal());
         var currentUser = userRepository.findById(request.getId()).orElseThrow(() -> new AppBadRequestException("User not found"));

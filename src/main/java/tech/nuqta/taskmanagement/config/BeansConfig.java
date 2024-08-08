@@ -33,7 +33,7 @@ public class BeansConfig {
 
     @Bean
     public CacheManager cacheManager() {
-        return new ConcurrentMapCacheManager("categories", "products");
+        return new ConcurrentMapCacheManager("tasks", "comments", "users");
     }
 
     @Bean
